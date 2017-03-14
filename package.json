@@ -1,0 +1,20 @@
+{
+  "name": "jsci",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.1.5",
+    "commander": "^2.9.0",
+    "dockerode": "^2.4.0",
+    "mkdirp": "^0.5.1",
+    "rc": "^1.1.7",
+    "simple-git": "^1.67.0",
+    "tar-fs": "^1.15.1"
+  }
+}

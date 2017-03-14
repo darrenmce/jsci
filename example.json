@@ -1,0 +1,19 @@
+{
+  "name": "jackie",
+  "git": {
+    "repo": "https://github.com/darrenmcetest/jackie.git"
+  },
+  "build": {
+    "image": "node:7-alpine",
+    "steps": [
+      "npm install",
+      "npm test",
+      "npm prune --production"
+    ]
+  },
+  "publish": {
+    "repo": "darrenmce/jackie",
+    "registry": "registry.hub.docker.com",
+    "auth": "hub"
+  }
+}
