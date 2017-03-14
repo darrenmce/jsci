@@ -1,5 +1,10 @@
 ### JSCI - Simple ~100 line CI process written in node
 
+#### Caveats
+- only works with public git repositories (or with auth in the url.. )
+- requires a docker image for build steps to be run within
+- requires a Dockerfile in the repository for publishing
+
 This is a purely educational implementation.
 
 Usage: (after cloning this repo and being in the root)
