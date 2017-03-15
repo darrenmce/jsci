@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const path = require('path');
 const mkdirp = require('mkdirp');
 const tar = require('tar-fs');
