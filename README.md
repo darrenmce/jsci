@@ -25,7 +25,7 @@ create a local .jscirc file to provide your [docker hub](hub.docker.com) authent
 }
 ```
 
-based on the `example.json` in the repository, create a build json.
+based on the [example.json](https://github.com/darrenmce/jsci/blob/master/example.json) in the repository, create a build json.
 
 Run your Job!
 
