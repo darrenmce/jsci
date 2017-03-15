@@ -15,11 +15,9 @@ create a local .jscirc file to provide your [docker hub](hub.docker.com) authent
 {
   "workspace": "/path/to/workspace/root",
   "auth": {
-    "registry": {
-      "hub": {
-        "username": "homersimpson",
-        "password": "d0hnuts"
-      }
+    "hub": {
+      "username": "homersimpson",
+      "password": "d0hnuts"
     }
   }
 }

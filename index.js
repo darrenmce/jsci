@@ -1,22 +1,20 @@
 const path = require('path');
 const mkdirp = require('mkdirp');
 const tar = require('tar-fs');
-const async = require('async');
+const as = require('async');
 const program = require('commander');
 const git = require('simple-git');
 const Docker = require('dockerode');
 
 const ciOptions = require('rc')('jsci', {
   workspace: __dirname,
-  "docker": {
-    "socketPath": "/var/run/docker.sock"
+  docker: {
+    socketPath: '/var/run/docker.sock'
   },
   auth: {
-    registry: {
-      hub: {
-        username: 'hubuser',
-        password: 'changeme'
-      }
+    hub: {
+      username: 'hubuser',
+      password: 'changeme'
     }
   }
 });
@@ -29,7 +27,7 @@ const docker = new Docker(ciOptions.docker);
 
 function start() {
   mkdirp.sync(workdir);
-  async.series([
+  as.series([
     checkout.bind(null, instructions.git.repo),
     build.bind(null, instructions.build.image, instructions.build.steps),
     publish.bind(null, instructions.publish)
@@ -39,15 +37,18 @@ function start() {
   })
 }
 
+/* Checkout (clone) functions */
 function checkout(repo, cb) {
-  return git().outputHandler((_, stdout, stderr) => {
+  return git().outputHandler((command, stdout, stderr) => {
+    console.log(`RUNNING GIT COMMAND: ${command}`);
     stdout.pipe(process.stdout);
     stderr.pipe(process.stdout);
   }).clone(repo, workdir, null, cb);
 }
 
+/* Build Functions */
 function build(image, steps, cb) {
-  async.eachSeries(steps, runStep.bind(null, image), cb);
+  as.eachSeries(steps, runStep.bind(null, image), cb);
 }
 
 function runStep(image, step, cb) {
@@ -59,14 +60,15 @@ function runStep(image, step, cb) {
     });
 }
 
+/* Publish Functions */
 function buildImage(tag, cb) {
   console.log(`Building Image: ${tag}`);
   docker.buildImage(tar.pack(workdir), { t: tag }, cb);
 }
 
-function pushImage (tag, auth, cb) {
+function pushImage (tag, authRef, cb) {
   console.log(`Pushing Image: ${tag}`);
-  docker.getImage(tag).push({ authconfig: ciOptions.auth.registry[auth], stream: true }, cb);
+  docker.getImage(tag).push({ authconfig: ciOptions.auth[authRef], stream: true }, cb);
 }
 
 function handleStream(stream, cb) {
@@ -75,11 +77,12 @@ function handleStream(stream, cb) {
 
 function publish(dockerOptions, cb) {
   const tag = `${dockerOptions.registry}/${dockerOptions.repo}:${buildNumber}`;
-  async.waterfall([
+  as.waterfall([
     buildImage.bind(null, tag),
     handleStream,
-    pushImage.bind(null, tag, dockerOptions.auth),
+    pushImage.bind(null, tag, dockerOptions.authRef),
     handleStream
   ], cb);
 }
+
 start();
