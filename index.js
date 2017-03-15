@@ -31,8 +31,8 @@ const workdir = path.join(ciOptions.workspace, instructions.name, buildNumber);
 const docker = new Docker(ciOptions.docker);
 
 function start() {
-  mkdirp.sync(workdir);
   as.series([
+    initWorkspace.bind(null, workdir),
     checkout.bind(null, instructions.git.repo),
     build.bind(null, instructions.build.image, instructions.build.steps),
     publish.bind(null, instructions.publish)
@@ -43,6 +43,10 @@ function start() {
 }
 
 /* Checkout (clone) functions */
+function initWorkspace(path, cb) {
+  mkdirp(path, cb);
+}
+
 function checkout(repo, cb) {
   return git().outputHandler((command, stdout, stderr) => {
     console.log(`RUNNING GIT COMMAND: ${command}`);
