@@ -1,6 +1,6 @@
 {
   "name": "jsci",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple JS CI",
   "main": "index.js",
   "bin": "./index.js",
@@ -17,5 +17,9 @@
     "rc": "^1.1.7",
     "simple-git": "^1.67.0",
     "tar-fs": "^1.15.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:darrenmce/jsci.git"
   }
 }
