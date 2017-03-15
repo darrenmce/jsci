@@ -1,6 +1,6 @@
 {
   "name": "jsci",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple JS CI",
   "main": "index.js",
   "bin": "./index.js",

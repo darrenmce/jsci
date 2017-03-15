@@ -7,9 +7,9 @@
 
 This is a purely educational implementation.
 
-Usage: (after cloning this repo and being in the root)
+Usage:
 
-create a local .jscirc file to provide your [docker hub](hub.docker.com) authentication and your workspace (where the builds get cloned to and run out of)
+create a **json config file** (myconfig.json in example) to provide your registry authentication ([docker hub](hub.docker.com) or any registry) and your workspace (where the builds get cloned to and run out of)
 
 ```json
 {
@@ -23,10 +23,11 @@ create a local .jscirc file to provide your [docker hub](hub.docker.com) authent
 }
 ```
 
-based on the [example.json](https://github.com/darrenmce/jsci/blob/master/example.json) in the repository, create a build json.
+based on the [example.json](https://github.com/darrenmce/jsci/blob/master/example.json) in the repository, create a build json (mybuild.json in example).
 
-Run your Job!
+install jsci and run your Job!
 
 ```sh
-node index.js -f mybuild.json
+npm install -g jsci
+jsci --config myconfig.json -f mybuild.json
 ```

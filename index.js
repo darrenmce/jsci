@@ -20,7 +20,11 @@ const ciOptions = require('rc')('jsci', {
   }
 });
 
-program.option('-f, --file [file]', 'Path to the json build file', './example.json').parse(process.argv);
+program
+  .option('--config', 'Config path for rc to use (not used directly)')
+  .option('-f, --file [file]', 'Path to the json build file', './example.json')
+  .parse(process.argv);
+
 const instructions = require(path.resolve(program.file));
 const buildNumber = Date.now().toString();
 const workdir = path.join(ciOptions.workspace, instructions.name, buildNumber);
