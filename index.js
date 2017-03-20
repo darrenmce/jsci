@@ -39,7 +39,7 @@ function start() {
   ], (err) => {
     if (err) throw err;
     console.log(`Job Complete. (${instructions.name} #${buildNumber})`);
-  })
+  });
 }
 
 /* Checkout (clone) functions */
@@ -48,7 +48,7 @@ function initWorkspace(path, cb) {
 }
 
 function checkout(repo, cb) {
-  return git().outputHandler((command, stdout, stderr) => {
+  git().outputHandler((command, stdout, stderr) => {
     console.log(`RUNNING GIT COMMAND: ${command}`);
     stdout.pipe(process.stdout);
     stderr.pipe(process.stdout);
